@@ -1,5 +1,6 @@
 var gulp = require('gulp')
 var concat = require('gulp-concat')
+var uncss = require('gulp-uncss')
 var sass = require('gulp-sass')(require('sass'))
 var webserver = require('gulp-webserver');
 
@@ -16,6 +17,7 @@ gulp.task('template', () => {
 gulp.task('styles', () => {
     return gulp.src('src/styles/styles.scss')
     .pipe(sass())
+    .pipe(uncss({html: ['index.html'], ignore: [".class"]}))
     .pipe(gulp.dest('dist'))
 })
 
