@@ -28,7 +28,7 @@ gulp.task('scripts', () => {
 })
 
 gulp.task('webserver', () => {
-    return gulp.src('dist')
+    return gulp.src('dist', {"allowEmpty": true})
     .pipe(webserver({
         livereload: true,
         open: true
