@@ -27,13 +27,7 @@ gulp.task('scripts', () => {
     .pipe(gulp.dest('dist'))
 })
 
-gulp.task('webserver', () => {
-    return gulp.src('dist')
-    .pipe(webserver({
-        livereload: true,
-        open: true
-    }))
-})
+gulp.task('build', gulp.parallel('assets','template', 'styles', 'scripts'))
 
 gulp.task('watch', () => {
     gulp.watch('src/index.html', gulp.series('template'))
@@ -42,13 +36,14 @@ gulp.task('watch', () => {
     gulp.watch('src/assets/**', gulp.series('assets'))
 })
 
+gulp.task('webserver', () => {
+    return gulp.src('dist')
+    .pipe(webserver({
+        livereload: true,
+        open: true
+    }))
+})
+
 gulp.task('default', 
-    gulp.parallel(
-        'assets',
-        'template', 
-        'styles', 
-        'scripts',
-        'webserver',
-        'watch', 
-    )
+    gulp.series('build','webserver','watch')
 )

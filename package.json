@@ -12,8 +12,8 @@
   },
   "devDependencies": {
     "gulp": "^4.0.2",
-    "gulp-sass": "^5.1.0",
     "gulp-concat": "^2.6.1",
+    "gulp-sass": "^5.1.0",
     "gulp-webserver": "^0.9.1",
     "sass": "^1.53.0"
   }
