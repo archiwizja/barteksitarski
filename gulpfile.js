@@ -4,7 +4,7 @@ var sass = require('gulp-sass')(require('sass'))
 var webserver = require('gulp-webserver');
 
 gulp.task('assets', () => {
-    return gulp.src('src/assets/**')
+    return gulp.src('src/assets/**/*')
     .pipe(gulp.dest('dist/assets'))
 })
 
