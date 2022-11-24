@@ -17,7 +17,7 @@ gulp.task('template', () => {
 gulp.task('styles', () => {
     return gulp.src('src/styles/styles.scss')
     .pipe(sass())
-    .pipe(uncss({html: ['src/index.html'], ignore: [".psb",".pfb"]}))
+    .pipe(uncss({html: ['dist/index.html'], ignore: [".psb",".pfb"]}))
     .pipe(gulp.dest('dist'))
 })
 
@@ -29,7 +29,7 @@ gulp.task('scripts', () => {
     .pipe(gulp.dest('dist'))
 })
 
-gulp.task('build', gulp.series('template', 'styles', 'scripts', 'assets'))
+gulp.task('build', gulp.series('template', 'scripts', 'assets', 'styles', ))
 
 gulp.task('watch', () => {
     gulp.watch('src/index.html', gulp.series('template'))
