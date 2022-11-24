@@ -1,5 +1,6 @@
 var gulp = require('gulp')
 var concat = require('gulp-concat')
+var uncss = require('gulp-uncss')
 var sass = require('gulp-sass')(require('sass'))
 var webserver = require('gulp-webserver');
 
@@ -16,6 +17,7 @@ gulp.task('template', () => {
 gulp.task('styles', () => {
     return gulp.src('src/styles/styles.scss')
     .pipe(sass())
+    // .pipe(uncss({html: ['dist/index.html'], ignore: [".psb",".pfb"]}))
     .pipe(gulp.dest('dist'))
 })
 
@@ -27,7 +29,7 @@ gulp.task('scripts', () => {
     .pipe(gulp.dest('dist'))
 })
 
-gulp.task('build', gulp.parallel('assets','template', 'styles', 'scripts'))
+gulp.task('build', gulp.series('template', 'scripts', 'assets', 'styles', ))
 
 gulp.task('watch', () => {
     gulp.watch('src/index.html', gulp.series('template'))

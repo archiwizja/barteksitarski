@@ -1,5 +1,5 @@
 {
-  "name": "quickstrap",
+  "name": "barteksitarski",
   "description": "html+scss+js",
   "version": "1.0.0",
   "main": "index.html",
@@ -14,6 +14,7 @@
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^5.1.0",
+    "gulp-uncss": "^1.0.6",
     "gulp-webserver": "^0.9.1",
     "sass": "^1.53.0"
   }
