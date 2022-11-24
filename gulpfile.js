@@ -17,7 +17,7 @@ gulp.task('template', () => {
 gulp.task('styles', () => {
     return gulp.src('src/styles/styles.scss')
     .pipe(sass())
-    .pipe(uncss({html: ['index.html'], ignore: [".class"]}))
+    .pipe(uncss({html: ['dist/index.html'], ignore: [".psb",".pfb"]}))
     .pipe(gulp.dest('dist'))
 })
 
