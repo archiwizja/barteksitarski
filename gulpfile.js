@@ -29,7 +29,7 @@ gulp.task('scripts', () => {
     .pipe(gulp.dest('dist'))
 })
 
-gulp.task('build', gulp.parallel('assets','template', 'styles', 'scripts'))
+gulp.task('build', gulp.series('template', 'styles', 'scripts', 'assets'))
 
 gulp.task('watch', () => {
     gulp.watch('src/index.html', gulp.series('template'))
