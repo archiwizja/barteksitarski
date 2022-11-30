@@ -1,0 +1,30 @@
+.nav {
+    text-align: center;
+
+    @include medium-up {
+        display: flex;
+    }
+
+    &__item {
+        list-style: none;
+        font-size: 1.4rem;
+
+        @include medium-up {
+            font-size: 1rem;
+            margin-right: 20px;
+        }
+    }
+
+    &__link {
+
+    }
+
+    &__close {
+        margin-top: 40px;
+
+        @include medium-up {
+            visibility: hidden;
+        }
+    }
+}
+

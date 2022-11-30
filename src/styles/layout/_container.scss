@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: $gray-d;
+
+    @include medium-up {
+        width: 90%;
+        max-width: 1400px;
+    }
+}

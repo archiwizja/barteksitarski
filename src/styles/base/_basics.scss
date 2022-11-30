@@ -3,12 +3,11 @@ html {
     line-height: $line-height;
     font-family: $font-family;
     font-size: $font-size;
-    @include medium-up {
-        font-size: calc($font-size * 1.125);
-    }
-    @include large-up {
-        font-size: calc($font-size * 1.25);
-    }
+}
+
+body {
+    display: flex;
+    justify-content: center;
 }
 
 p {
@@ -44,11 +43,11 @@ h6 {
 }
 
 a {
-    color: $gray-dark;
+    color: $black;
     text-decoration: none;
     transition: all .2s ease-in-out;
     &:hover {
-        color: $gray-light;
+        color: $gray-7;
     }
 }
 
