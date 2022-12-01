@@ -11,20 +11,10 @@
 
         @include medium-up {
             font-size: 1rem;
-            margin-right: 20px;
+            margin-left: 10px;
+            margin-right: 10px;
         }
     }
 
-    &__link {
-
-    }
-
-    &__close {
-        margin-top: 40px;
-
-        @include medium-up {
-            visibility: hidden;
-        }
-    }
 }
 

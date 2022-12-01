@@ -13,15 +13,26 @@
     &__nav {
         background-color: rgb(241, 241, 241);
         position: absolute;
-        visibility: visible;
+        display: none;
+        justify-content: center;
         width: 100%;
         top: 120px;
         left: 50%;
         transform: translate(-50%);
         padding: 15px 0;
+        
+        &--visible {
+            display: flex;
+            animation: opacity .5s;
+
+            @keyframes opacity {
+                from {opacity: 0}
+                to {opacity: 100}
+            }              
+        }
 
         @include medium-up {
-            visibility: visible;
+            display: flex;
             width: auto;
             top: auto;
             background-color: transparent;
@@ -29,9 +40,21 @@
         }
     }
 
-    &__menu {
+    &__button {
+        padding: 20px;
+        background-color: transparent;
+        color: #fff;
+        transition: color 0.5s;
+        &:hover {
+            color: #888;
+        }
+        @include medium-up {
+            display: none;
+        }
+    }
+
+    &__icon {
         font-size: 3rem;
-        margin-right: 10px;
     }
 }
 

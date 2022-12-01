@@ -17,13 +17,16 @@ gulp.task('template', () => {
 gulp.task('styles', () => {
     return gulp.src('src/styles/styles.scss')
     .pipe(sass())
-    // .pipe(uncss({html: ['dist/index.html'], ignore: [".psb",".pfb"]}))
+    // .pipe(uncss({html: ['dist/index.html'], 
+    // ignore: [
+    //     ".header__nav--visible",
+    // ]}))
     .pipe(gulp.dest('dist'))
 })
 
 gulp.task('scripts', () => {
     return gulp.src([
-        'src/scripts/jquery.js',
+        'src/scripts/menu.js',
         'src/scripts/scripts.js'])
     .pipe(concat('scripts.js'))
     .pipe(gulp.dest('dist'))
@@ -33,7 +36,7 @@ gulp.task('build', gulp.series('template', 'scripts', 'assets', 'styles', ))
 
 gulp.task('watch', () => {
     gulp.watch('src/index.html', gulp.series('template'))
-    gulp.watch('src/scripts/scripts.js', gulp.series('scripts'))
+    gulp.watch('src/scripts/**.js', gulp.series('scripts'))
     gulp.watch('src/styles/**/*.scss', gulp.series('styles'))
     gulp.watch('src/assets/**', gulp.series('assets'))
 })
