@@ -1,1 +1,1 @@
-console.log("Przemek");
+console.log("Everything OK");

@@ -9,6 +9,7 @@ function toggleMenu(event) {
     event.stopPropagation()
     headerNav.classList.toggle('header__nav--visible')
     headerIcon.classList.toggle('fa-xmark')
+    headerIcon.classList.toggle('fa-bars')
     window.addEventListener('click', hideMenu)
 }
 
@@ -16,5 +17,6 @@ function hideMenu() {
     console.log("hideMenu()");
     headerNav.classList.remove('header__nav--visible')
     headerIcon.classList.remove('fa-xmark')
+    headerIcon.classList.add('fa-bars')
     window.removeEventListener('click', hideMenu)
 }
