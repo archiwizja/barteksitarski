@@ -1,11 +1,13 @@
 .container {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     width: 100%;
-    background-color: $gray-d;
+    background-color: $body-color;
 
     @include medium-up {
         width: 90%;
         max-width: 1400px;
+
     }
 }

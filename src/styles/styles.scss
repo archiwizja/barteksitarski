@@ -17,9 +17,9 @@
 @import 'layout/_footer';
 
 // pages
-@import 'pages/_about';
+@import 'pages/_home';
 @import 'pages/_contact';
-@import 'pages/_gallery';
+@import 'pages/_offer';
 
 // components
 @import 'components/_button';
@@ -27,6 +27,7 @@
 @import 'components/_list';
 @import 'components/_logo';
 @import 'components/_nav';
+@import 'components/_social';
 
 // tools
 // @import 'tools/_box';

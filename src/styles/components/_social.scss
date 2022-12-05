@@ -1,0 +1,30 @@
+.social {
+    display: flex;
+    margin-top: 55px;
+    
+    @include medium-up {
+        display: flex;
+        position: absolute;
+        margin-top: -5px;
+        right: 15px;
+    }
+
+    &__item {
+        background-color: transparent;
+    }
+
+    &__link {
+        font-size: 1.7rem;
+        padding-top: 30px;
+        margin: 0 10px;
+        color: $bs-color;
+
+        @include medium-up {
+            padding-top: 0;
+        }
+    }
+
+    .fa-instagram {
+        font-size: 1.8rem;
+    }
+}

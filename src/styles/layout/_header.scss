@@ -4,26 +4,36 @@
     position: relative;
     width: 100%;
     height: 120px;
-    padding: 10px;
 
     &__logo {
         width: 150px;
+        margin-left: 18px;
+        align-self: center;
+    }
+
+    &__link {
+        display: flex;
     }
 
     &__nav {
-        background-color: rgb(241, 241, 241);
+        background-color: $gray-1;
         position: absolute;
         display: none;
         justify-content: center;
         width: 100%;
-        top: 120px;
-        left: 50%;
-        transform: translate(-50%);
-        padding: 15px 0;
+        // left: 50%;
+        // transform: translate(-50%);
+        padding: 25px 0;
+        border-radius: 0 0 10px 10px;
         
         &--visible {
             display: flex;
+            align-items: center;
+            flex-flow: column nowrap;
             animation: opacity .5s;
+            background-color: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(8px);
+            top: 145px;
 
             @keyframes opacity {
                 from {opacity: 0}
@@ -33,20 +43,25 @@
 
         @include medium-up {
             display: flex;
-            width: auto;
-            top: auto;
+            top: 0;
             background-color: transparent;
-            
+            backdrop-filter: blur(0);
         }
     }
 
+    &__menu {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+    }
+
     &__button {
-        padding: 20px;
         background-color: transparent;
-        color: #fff;
+        color: $gray-c;
         transition: color 0.5s;
+        cursor: pointer;
         &:hover {
-            color: #888;
+            color: white;
         }
         @include medium-up {
             display: none;

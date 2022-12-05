@@ -3,18 +3,32 @@
 
     @include medium-up {
         display: flex;
+
     }
 
     &__item {
         list-style: none;
-        font-size: 1.4rem;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        line-height: 45px;
+        letter-spacing: 1.5px;
+
 
         @include medium-up {
             font-size: 1rem;
             margin-left: 10px;
             margin-right: 10px;
+            line-height: 0;
         }
     }
 
+    &__link {
+        color: $gray-c;
+        transition: .5s;
+
+        &:hover {
+            color: white;
+        }
+    }
 }
 

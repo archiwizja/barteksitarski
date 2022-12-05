@@ -4,7 +4,7 @@ let contact = ''
 let notFound = `<h1>404</h1>`
 let routes = {};
 
-const navLinks = document.querySelectorAll('.nav__link')
+const navLinks = document.querySelectorAll('.link')
 const mainSection = document.querySelector(".main")
 
 
