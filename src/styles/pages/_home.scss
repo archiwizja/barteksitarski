@@ -26,8 +26,8 @@
 
     &__text {
         position: absolute;
-        text-transform: uppercase;
-        letter-spacing: 2px;
+        font-family: $font-robotoFlex;
+        letter-spacing: 1px;
         top: 40px;
         left: 40px;
         color: white;
@@ -41,12 +41,13 @@
 
     &__title {
         font-size: 2rem;
+        font-weight: 400;
     }
 
     &__subtitle {
-        font-family: $font-robotoFlex;
         font-size: 0.9rem;
         font-weight: 100;
+        line-height: 10px;
     }
 
     &__pic {
