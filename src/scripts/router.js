@@ -1,56 +1,46 @@
-let home = ''
-let offer = ''
-let contact = ''
-let notFound = `<h1>404</h1>`
-let routes = {};
-
-const navLinks = document.querySelectorAll('.link')
+const routes = {}
+const notFound = '<h3>Niestety wybrana strona nie istnieje</h3>'
 const mainSection = document.querySelector(".main")
 
+async function render(path) {
+    console.log(`render(${path})`);
 
-function render(path) {
-    console.log(`Render: ${path}`);
+    if (!routes["/"] && path == "/") {
+        routes["/"] = await loadHtml('home')
+
+    } else if (!routes["/offer"] && path == "/offer") {
+        routes["/offer"] = await loadHtml("offer")
+
+    } else if (!routes["/contact"] && path == "/contact") {
+        routes["/contact"] = await loadHtml("contact")
+
+    } else if (path == "/gallery1") {
+        routes["/gallery1"] = await prepareGallery(1)
+
+    } else if (path == "/gallery2") {
+        routes["/gallery2"] = await prepareGallery(2)
+
+    } else if (path == "/gallery3") {
+        routes["/gallery3"] = await prepareGallery(3)
+
+    } else if (path == "/gallery4") {
+        routes["/gallery4"] = await prepareGallery(4)
+    }
+
+    console.log(routes);
     mainSection.innerHTML = routes[path] || notFound
+    window.history.pushState({}, path, path)
+    addListeners()
 }
 
-async function loadPage(page) {
-    const response = await fetch(`templates/${page}.html`)
-    const responseHtml = await response.text()
-    return responseHtml
-}
-
-async function loadAllPages() {
-    home = await loadPage('home');
-    offer = await loadPage('offer');
-    contact = await loadPage('contact');
-};
-
-async function main() {
-    await loadAllPages()
-    routes = {
-        "/": home,
-        "/offer": offer,
-        "/contact": contact,
-    };
-
-    render("/")
-
-    window.addEventListener("popstate", e =>
-        render(new URL(window.location.href).pathname)
-    )
-
-    navLinks.forEach(link => {
-
-        link.addEventListener("click", evt => {
-            evt.preventDefault()
-            const {pathname: path} = new URL(evt.target.closest('a').href);
-            window.history.pushState({}, path, path)
-            render(path)
-        })
-    })
+function main() {
+    console.log("main()");
+    render(getUrl())
 }
 
 main()
+
+
 
 
 
