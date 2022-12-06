@@ -5,8 +5,10 @@
     @include medium-up {
         display: flex;
         position: absolute;
-        margin-top: -5px;
+        margin-top: 0;
         right: 15px;
+        top: 40px;
+        transform: translateY(-50%);
     }
 
     &__item {

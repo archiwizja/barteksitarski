@@ -3,7 +3,10 @@
 
     @include medium-up {
         display: flex;
-
+        position: absolute;
+        right: 135px;
+        top: 40px;
+        transform: translateY(-50%);
     }
 
     &__item {
@@ -15,10 +18,10 @@
 
 
         @include medium-up {
-            font-size: 1rem;
-            margin-left: 10px;
-            margin-right: 10px;
-            line-height: 0;
+            font-size: 0.9rem;
+            margin-left: 8px;
+            margin-right: 8px;
+            line-height: 1.3rem;
         }
     }
 

@@ -12,19 +12,20 @@
 
 //layout
 @import 'layout/_container';
+@import 'layout/_footer';
 @import 'layout/_header';
 @import 'layout/_main';
-@import 'layout/_footer';
 
 // pages
-@import 'pages/_home';
 @import 'pages/_contact';
+@import 'pages/_gallery';
+@import 'pages/_home';
 @import 'pages/_offer';
 
 // components
-@import 'components/_button';
-@import 'components/_iconBox';
-@import 'components/_list';
+// @import 'components/_button';
+// @import 'components/_iconBox';
+// @import 'components/_list';
 @import 'components/_logo';
 @import 'components/_nav';
 @import 'components/_social';
