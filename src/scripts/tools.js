@@ -11,29 +11,40 @@ function getUrl() {
     return url
 }
 
-function addListeners() {
-    const links = document.querySelectorAll('.link')
+function addListeners(selector) {
+    const links = document.querySelectorAll(selector)
 
-    console.log("addListeners()");
+    console.log(`addListeners(${selector})`);
     console.log(links);
 
     links.forEach(link => {
         link.addEventListener("click", event => {
             event.preventDefault()
-            event.stopImmediatePropagation()
             const {pathname: path} = new URL(event.target.closest('a').href);
             console.log(`clik => ${path}`);
             render(path)
         })
     })
-
-    window.addEventListener("popstate", event => {
-        console.log("popstate()");
-        render(getUrl())
-    })
 }
 
-
+function setActiveLink(activePath) {
+    console.log(`setActiveLink(${activePath})`);
+    const links = document.querySelectorAll(".nav__link")
+    console.log(links);
+    
+    links.forEach(link => {
+        const {pathname: path} = new URL(link.href);
+        // const url = new URL(link.href);
+        // console.log(url);
+        // const {pathname: path} = url
+        console.log(path);
+        if (path == activePath) {
+            link.classList.add("nav__link--active")
+        } else {
+            link.classList.remove("nav__link--active")
+        }
+    })
+}
 
 
 

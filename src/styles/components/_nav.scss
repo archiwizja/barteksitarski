@@ -32,6 +32,11 @@
         &:hover {
             color: white;
         }
+
+        &--active {
+            font-weight: bold;
+            color: $bs-color;
+        }
     }
 }
 

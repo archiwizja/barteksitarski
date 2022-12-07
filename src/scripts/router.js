@@ -4,6 +4,7 @@ const mainSection = document.querySelector(".main")
 
 async function render(path) {
     console.log(`render(${path})`);
+    setActiveLink(path)
 
     if (!routes["/"] && path == "/") {
         routes["/"] = await loadHtml('home')
@@ -30,12 +31,23 @@ async function render(path) {
     console.log(routes);
     mainSection.innerHTML = routes[path] || notFound
     window.history.pushState({}, path, path)
-    addListeners()
+
+    if (path == "/") {
+        addListeners(".home__link")
+    }
+
 }
 
 function main() {
     console.log("main()");
+    addListeners(".header__link")
+    addListeners(".nav__link")
     render(getUrl())
+
+    window.addEventListener("popstate", event => {
+        console.log("popstate()");
+        render(getUrl())
+    })
 }
 
 main()
