@@ -1,5 +1,6 @@
 .social {
     display: flex;
+    justify-content: center;
     margin-top: 55px;
     
     @include medium-up {
@@ -18,7 +19,8 @@
     &__link {
         font-size: 1.7rem;
         padding-top: 30px;
-        margin-left: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
         color: $bs-color;
 
         @include medium-up {

@@ -35,6 +35,7 @@ gulp.task('scripts', () => {
         'src/scripts/gallery.js',
         'src/scripts/menu.js',
         'src/scripts/router.js',
+        'src/scripts/main.js',
         ])
     .pipe(concat('scripts.js'))
     .pipe(gulp.dest('dist'))

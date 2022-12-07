@@ -1,5 +1,6 @@
 .container {
     background-color: $body-color;
+    width: 100%;
 
     @include medium-up {
         width: 90%;
