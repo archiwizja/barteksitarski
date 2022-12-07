@@ -6,7 +6,7 @@
         display: flex;
         position: absolute;
         margin-top: 0;
-        right: 15px;
+        right: 25px;
         top: 40px;
         transform: translateY(-50%);
     }
@@ -18,7 +18,7 @@
     &__link {
         font-size: 1.7rem;
         padding-top: 30px;
-        margin: 0 10px;
+        margin-left: 20px;
         color: $bs-color;
 
         @include medium-up {
