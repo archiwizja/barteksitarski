@@ -1,6 +1,8 @@
 .container {
+    position: relative;
     background-color: $body-color;
     width: 100%;
+    min-height: 100vh;
 
     @include medium-up {
         width: 90%;
