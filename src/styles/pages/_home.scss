@@ -33,6 +33,7 @@
         color: white;
         opacity: 0;
         transition: .5s;
+        text-align: start;
 
         .home__item:hover & {
             opacity: 1;
