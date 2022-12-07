@@ -1,3 +1,5 @@
+class
+
 const headerNav = document.querySelector('.header__nav');
 const headerButton = document.querySelector('.header__button');
 const headerIcon = document.querySelector('.header__icon');
