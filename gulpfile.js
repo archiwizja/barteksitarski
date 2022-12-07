@@ -31,9 +31,11 @@ gulp.task('styles', () => {
 
 gulp.task('scripts', () => {
     return gulp.src([
-        'src/scripts/router.js',
+        'src/scripts/tools.js',
+        'src/scripts/gallery.js',
         'src/scripts/menu.js',
-        'src/scripts/scripts.js'])
+        'src/scripts/router.js',
+        ])
     .pipe(concat('scripts.js'))
     .pipe(gulp.dest('dist'))
 })
@@ -51,6 +53,7 @@ gulp.task('watch', () => {
 gulp.task('webserver', () => {
     return gulp.src('dist')
     .pipe(webserver({
+        fallback: 'index.html',
         livereload: true,
         open: true
     }))
