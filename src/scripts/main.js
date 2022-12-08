@@ -8,6 +8,7 @@ function main() {
         console.log("popstate()")
         render(getUrl())
     })
+    new Menu()
 }
 
 main()
