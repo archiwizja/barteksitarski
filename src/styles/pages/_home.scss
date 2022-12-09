@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
+    padding: 5px;
 
 
     @include medium-up {
@@ -54,12 +55,13 @@
     &__pic {
         height: 100%;
         object-fit: cover;
-        aspect-ratio: 4/3;
+        aspect-ratio: 16/9;
         transition: .5s;
+        padding: 5px;
 
         .home__item:hover & {
             filter:brightness(50%);
-            border-radius: 10px;
+            border-radius: 20px;
         }
     }
 }

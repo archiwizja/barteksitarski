@@ -1,5 +1,5 @@
 html {
-    --accent: #b3c501;
+    --accent: black;
     --viewHeight: 95vh;
     --marginTop: 40px;
 }
@@ -7,17 +7,19 @@ html {
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(380px,1fr));
-    margin: 30px;
+    margin: 30px 10px;
     margin-top: var(--marginTop);
     gap: 10px;
 }
 .gallery_image {
+    display: flex;
     width: 100%;
-    aspect-ratio: 4/3;
+    aspect-ratio: 16/9;
     object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 0 20px var(--accent);
-    transition: 0.5s
+    transition: 0.5s;
+    padding: 0;
 }
 .gallery_image:hover {
     filter: brightness(0.5);
@@ -46,19 +48,19 @@ html {
     z-index: 1;
 }
 .photo_arrow:hover {
-    color: var(--accent);
+    color: #222;
     text-shadow: 0 0 20px var(--accent);
 }
 .photo_next {
     position: absolute;
-    top: calc(var(--marginTop));
-    padding: 35vh 50px 100%;
+    top: -20px;
+    padding: 0 50px 100%;
     right: 30px;
 }
 .photo_previous {
     position: absolute;
-    top: calc(var(--marginTop));
-    padding: 35vh 50px 100%;
+    top: -20px;
+    padding: 0 50px 100%;
     left: 30px;
     z-index: 2;
 }
@@ -66,13 +68,13 @@ html {
     position: absolute;
     width: calc(100% - 100px);
     height: calc(100% - var(--marginTop) - 60px);
-    top: calc(var(--marginTop) + 10px);
+    top: -20px;
     left: 50px;
 }
 .photo_image {
     position: relative;
     max-width: calc(100vw - 60px);
-    max-height: var(--viewHeight);
+    max-height: calc(100vh - 150px);
     margin: 30px;
     object-fit: cover;
     margin-top: var(--marginTop);
