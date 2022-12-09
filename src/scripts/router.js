@@ -41,10 +41,17 @@ class Router {
     
         console.log(this.routes);
         this.mainSection.innerHTML = this.routes[path] || this.notFound
+
+
         window.history.pushState({}, path, path)
-    
+
         if (path == "/") {
             this.addListeners(".home__link")
+            
+        } else if (path.slice(0,-1) == "/gallery") {
+            
+            getGalleryDate()
+            showGallery(path.slice(-1))
         }
     }
   
