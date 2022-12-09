@@ -1,8 +1,13 @@
-var gulp = require('gulp')
-var concat = require('gulp-concat')
-var uncss = require('gulp-uncss')
-var sass = require('gulp-sass')(require('sass'))
-var webserver = require('gulp-webserver');
+const gulp = require('gulp')
+const concat = require('gulp-concat')
+const uncss = require('gulp-uncss')
+const sass = require('gulp-sass')(require('sass'))
+const webserver = require('gulp-webserver');
+// const del = require('del');
+
+// gulp.task('clean', function(){
+//     return del('dist/**/*', {force:true});
+// });
 
 gulp.task('assets', () => {
     return gulp.src('src/assets/**')

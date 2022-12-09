@@ -87,37 +87,109 @@ async function showGallery(number) {
     }
 }
 
-function prepareGallery(data, path) {
-    console.log("prepareGallery()");
-    let table = data.split("\n")
-    $photos = [];
-    $index = 0;
+// function prepareGallery(data, path) {
+//     console.log("prepareGallery()");
+//     let table = data.split("\n")
+//     $photos = [];
+//     $index = 0;
 
-    console.log(table);            
-    table.forEach(name => {
-        name = name.trimEnd()
-        if (name !== "" && name !== "\n")
-        $photos.push(name)
-    })
+//     console.log(table);            
+//     table.forEach(name => {
+//         name = name.trimEnd()
+//         if (name !== "" && name !== "\n")
+//         $photos.push(name)
+//     })
 
-    console.log($photos);
-    $photos.forEach(photo => {
-        const imgPath = `${path}${photo}.jpg`
-        console.log(imgPath);
+//     console.log($photos);
+//     $photos.forEach(photo => {
+//         const imgPath = `${path}${photo}.jpg`
+//         console.log(imgPath);
         
-        const image = $galleryTemplate.content.cloneNode(true);
-        const img = image.querySelector('.gallery_image');
+//         const image = $galleryTemplate.content.cloneNode(true);
+//         const img = image.querySelector('.gallery_image');
 
-        img.setAttribute("id", `${$index}`)
-        img.setAttribute("src", `${imgPath}`)
-        img.setAttribute("alt", `${photo}`)
-        img.setAttribute("title", `${photo}`)
-        img.addEventListener("click", showSelectedPhoto)
+//         img.setAttribute("id", `${$index}`)
+//         img.setAttribute("src", `${imgPath}`)
+//         img.setAttribute("alt", `${photo}`)
+//         img.setAttribute("title", `${photo}`)
+//         img.addEventListener("click", showSelectedPhoto)
 
-        $gallery.appendChild(image)
-        $index++;
-    })             
+//         $gallery.appendChild(image)
+//         $index++;
+//     })             
+// }
+
+async function checkGallery(number) {
+    let i = 0;
+    while (i < 5){
+        i++;
+        console.log("while()");
+        try {
+            const path = `assets/gallery${number}/0${i}.jpg`
+            const response = await fetch(path)
+            console.log(path);
+        } catch {
+
+        }
+
+        // try {
+        //     const path = `assets/gallery${number}/`
+        //     const response = await fetch(`${path}00.txt`)
+    
+        //     if (response.status == 200) {
+        //         $gallery.classList.remove("none")
+        //         $gallery.classList.add("show")
+    
+        //         const data = await response.text()
+        //         prepareGallery(data, path)
+    
+        //     } else {
+        //         console.log("Niestety wybrana galeria jest niedostępna...");
+        //     }
+    
+        // } catch (error) {
+        //     console.log(error);
+        // }
+      
+    }
 }
+
+
+function prepareGallery(data, path) {
+        console.log("prepareGallery()");
+
+        checkGallery(1)
+
+
+        let table = data.split("\n")
+        $photos = [];
+        $index = 0;
+    
+        console.log(table);            
+        table.forEach(name => {
+            name = name.trimEnd()
+            if (name !== "" && name !== "\n")
+            $photos.push(name)
+        })
+    
+        console.log($photos);
+        $photos.forEach(photo => {
+            const imgPath = `${path}${photo}.jpg`
+            // console.log(imgPath);
+            
+            const image = $galleryTemplate.content.cloneNode(true);
+            const img = image.querySelector('.gallery_image');
+    
+            img.setAttribute("id", `${$index}`)
+            img.setAttribute("src", `${imgPath}`)
+            img.setAttribute("alt", `${photo}`)
+            img.setAttribute("title", `${photo}`)
+            img.addEventListener("click", showSelectedPhoto)
+    
+            $gallery.appendChild(image)
+            $index++;
+        })             
+    }
 
 function showPhoto(imgID) {
     console.log("showPhoto() " + imgID);
