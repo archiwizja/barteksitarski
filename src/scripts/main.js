@@ -1,14 +1,9 @@
-function main() {
-    console.log("main()");
-    addListeners(".header__link")
-    addListeners(".nav__link")
-    render(getUrl())
-
-    window.addEventListener("popstate", event => {
-        console.log("popstate()")
-        render(getUrl())
-    })
-    new Menu()
+class Main {
+    constructor() {
+        console.log("Main()");
+        new Router()
+        new Menu()
+    }
 }
 
-main()
+new Main()

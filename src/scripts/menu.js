@@ -24,4 +24,3 @@ class Menu {
         window.removeEventListener('click', this.hideMenu);
     };
 }
-

@@ -32,9 +32,9 @@ gulp.task('styles', () => {
 gulp.task('scripts', () => {
     return gulp.src([
         'src/scripts/tools.js',
-        'src/scripts/gallery.js',
         'src/scripts/menu.js',
         'src/scripts/router.js',
+        'src/scripts/gallery.js',
         'src/scripts/main.js',
         ])
     .pipe(concat('scripts.js'))
