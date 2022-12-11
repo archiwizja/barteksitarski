@@ -1,29 +1,23 @@
-html {
-    --accent: black;
-    --viewHeight: 95vh;
-    --marginTop: 40px;
-}
-
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(380px,1fr));
-    margin: 30px 10px;
-    margin-top: var(--marginTop);
+    margin: 10px;
     gap: 10px;
-}
-.gallery_image {
-    display: flex;
-    width: 100%;
-    aspect-ratio: 16/9;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 0 20px var(--accent);
-    transition: 0.5s;
-    padding: 0;
-}
-.gallery_image:hover {
-    filter: brightness(0.5);
-    cursor: pointer;
+
+    &_image {
+        display: flex;
+        width: 100%;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 0 20px black;
+        transition: 0.5s;
+        padding: 0;
+        &:hover {
+            filter: brightness(0.5);
+            cursor: pointer;
+        }
+    }
 }
 
 .photo {
@@ -36,87 +30,93 @@ html {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
-    z-index: 10;
-}
-.photo_group {
-    position: relative;
-}
-.photo_arrow {
-    font-size: 40px;
-    color: #888;
-    transition: 1s;
     z-index: 1;
-}
-.photo_arrow:hover {
-    color: #222;
-    text-shadow: 0 0 20px var(--accent);
-}
-.photo_next {
-    position: absolute;
-    top: -20px;
-    padding: 0 50px 100%;
-    right: 30px;
-}
-.photo_previous {
-    position: absolute;
-    top: -20px;
-    padding: 0 50px 100%;
-    left: 30px;
-    z-index: 2;
-}
-.photo_close {
-    position: absolute;
-    width: calc(100% - 100px);
-    height: calc(100% - var(--marginTop) - 60px);
-    top: -20px;
-    left: 50px;
-}
-.photo_image {
-    position: relative;
-    max-width: calc(100vw - 60px);
-    max-height: calc(100vh - 150px);
-    margin: 30px;
-    object-fit: cover;
-    margin-top: var(--marginTop);
-    box-shadow: 0 0 40px var(--accent);
-    border-radius: 10px;
-}
-.photo_name {
-    font-size: 1.2rem;
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    left: 0px;
-    bottom: 50px;
-    text-shadow: 0 0 5px #fff;
-    color: #000;
-    z-index: 1;
+    &_group {
+        position: relative;
+        margin-top: 10px;
+    }
+    &_arrow {
+        transition: 1s;
+        font-size: 30px;
+        color: #888;
+        &:hover {
+            color: #444;
+        }
+        &-next {
+            position: absolute;
+            text-align: right;
+            top: -40px;
+            right: 0px;
+            height: 100%;
+            width: 25%;
+            padding: 0 10px;
+        }
+        &-previous {
+            position: absolute;
+            text-align-last: left;
+            top: -40px;
+            left: 0px;
+            height: 100%;
+            width: 25%;
+            padding: 0 10px;
+        }
+        &-close {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translate(-50%);
+            width: 50%;
+            height: 100%;
+        }
+    }
+    &_image {
+        display: flex;
+        position: relative;
+        max-width: calc(100vw - 60px);
+        max-height: calc(100vh - 100px);
+        object-fit: cover;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+        border-radius: 10px;
+    }
+    &_name {
+        position: absolute;
+        left: 0px;
+        bottom: 50px;
+        width: 100%;
+        font-size: 1.2rem;
+        text-align: center;
+        text-shadow: 0 0 5px #fff;
+        color: #000;
+        z-index: 1;
+    }
 }
 
 .none {
     display: none;
 }
+
 .show {
     animation: show 1s;
-}
-.hide {
-    animation: hide 1s;
+    @keyframes show {
+        from {
+            opacity: 0
+        } to {
+            opacity: 1
+        }
+    }
 }
 
-@keyframes show {
-    from {
-        opacity: 0
-    } to {
-        opacity: 1
+.hide {
+    animation: hide 0.5s;
+    @keyframes hide {
+        from {
+            opacity: 1
+        } to {
+            opacity: 0
+        }
     }
 }
-@keyframes hide {
-    from {
-        opacity: 1
-    } to {
-        opacity: 0
-    }
-}
+
 @keyframes spin {
     from {
         transform: rotate(0deg);

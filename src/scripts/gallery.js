@@ -1,17 +1,3 @@
-class Gallery {
-    constructor(number) {
-        console.log(`Gallery(${number})`);
-        return this.loadGallery(number)
-
-    }
-
-    loadGallery = async (number) => {
-        let gallery = await Tools.loadHtml("gallery")
-        console.log("loadGallery()");
-        return gallery
-    }
-}
-
 let $gallery
 let $galleryTemplate
 
@@ -36,8 +22,8 @@ function getGalleryDate() {
     $photo = document.querySelector('.photo');
     $photoName = document.querySelector('.photo_name');
     $photoImage = document.querySelector('.photo_image');
-    $photoPrevious = document.querySelector('.photo_previous');
-    $photoNext = document.querySelector('.photo_next');
+    $photoPrevious = document.querySelector('.photo_arrow-previous');
+    $photoNext = document.querySelector('.photo_arrow-next');
 
     window.addEventListener('keyup', checkKeys);
     $photo.addEventListener("click", hidePhoto)
@@ -65,6 +51,7 @@ function checkKeys(e) {
 
 async function showGallery(number) {
     console.log("showGallery()");
+    getGalleryDate()
     $gallery.innerHTML =""
 
     try {
@@ -87,39 +74,7 @@ async function showGallery(number) {
     }
 }
 
-// function prepareGallery(data, path) {
-//     console.log("prepareGallery()");
-//     let table = data.split("\n")
-//     $photos = [];
-//     $index = 0;
-
-//     console.log(table);            
-//     table.forEach(name => {
-//         name = name.trimEnd()
-//         if (name !== "" && name !== "\n")
-//         $photos.push(name)
-//     })
-
-//     console.log($photos);
-//     $photos.forEach(photo => {
-//         const imgPath = `${path}${photo}.jpg`
-//         console.log(imgPath);
-        
-//         const image = $galleryTemplate.content.cloneNode(true);
-//         const img = image.querySelector('.gallery_image');
-
-//         img.setAttribute("id", `${$index}`)
-//         img.setAttribute("src", `${imgPath}`)
-//         img.setAttribute("alt", `${photo}`)
-//         img.setAttribute("title", `${photo}`)
-//         img.addEventListener("click", showSelectedPhoto)
-
-//         $gallery.appendChild(image)
-//         $index++;
-//     })             
-// }
-
-async function checkGallery(number) {
+async function prepareGalleryData(number) {
     let i = 0;
     while (i < 5){
         i++;
@@ -154,11 +109,10 @@ async function checkGallery(number) {
     }
 }
 
-
 function prepareGallery(data, path) {
         console.log("prepareGallery()");
 
-        checkGallery(1)
+        prepareGalleryData(1)
 
 
         let table = data.split("\n")
@@ -191,8 +145,27 @@ function prepareGallery(data, path) {
         })             
     }
 
+function showPresentation(e) {
+    console.log("showPresentation()");
+
+    $photo.classList.remove("none");
+    $photo.classList.add("show");
+
+    showPhoto(0)
+    $index = 0;
+
+    $interval = setInterval(() => {
+        if ($index < $photos.length - 1) {
+            showNextPhoto(e)
+        } else {
+            clearInterval($interval)
+            hidePhoto(e)
+        }
+    }, 3000);
+}
+
 function showPhoto(imgID) {
-    console.log("showPhoto() " + imgID);
+    console.log(`showPhoto(${imgID})`);
 
     if (imgID == 0) {
         $photoPrevious.classList.add("none")
@@ -216,26 +189,7 @@ function showPhoto(imgID) {
 
     $photoImage.setAttribute("src", image.src)
     $photoImage.setAttribute("title", image.title)
-    $photoName.textContent = image.title;
-}
-
-function showPresentation(e) {
-    console.log("showPresentation()");
-
-    $photo.classList.remove("none");
-    $photo.classList.add("show");
-
-    showPhoto(0)
-    $index = 0;
-
-    $interval = setInterval(() => {
-        if ($index < $photos.length - 1) {
-            showNextPhoto(e)
-        } else {
-            clearInterval($interval)
-            hidePhoto(e)
-        }
-    }, 3000);
+    // $photoName.textContent = image.title;
 }
 
 function showSelectedPhoto(e) {      
@@ -247,7 +201,7 @@ function showSelectedPhoto(e) {
     showPhoto(imgID)
     $index = imgID;
 
-    console.log("showSelectedPhoto() " + $index);
+    console.log(`showSelectedPhoto(${$index})`);
 }
 
 function showPreviousPhoto(e){
@@ -280,5 +234,5 @@ function hidePhoto(e) {
         $photo.classList.add("none")
         $photo.classList.remove("show");
         $photo.classList.remove("hide")
-    }, 900);
+    }, 450);
 }

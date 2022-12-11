@@ -1,13 +1,13 @@
 const gulp = require('gulp')
 const concat = require('gulp-concat')
-const uncss = require('gulp-uncss')
 const sass = require('gulp-sass')(require('sass'))
 const webserver = require('gulp-webserver');
-// const del = require('del');
+const clean = require('gulp-clean');
 
-// gulp.task('clean', function(){
-//     return del('dist/**/*', {force:true});
-// });
+gulp.task('clean', () => {
+    return gulp.src('dist', {read: true})
+    .pipe(clean());
+});
 
 gulp.task('assets', () => {
     return gulp.src('src/assets/**')
@@ -27,16 +27,11 @@ gulp.task('templates', () => {
 gulp.task('styles', () => {
     return gulp.src('src/styles/styles.scss')
     .pipe(sass())
-    // .pipe(uncss({html: ['dist/index.html'], 
-    // ignore: [
-    //     ".header__nav--visible",
-    // ]}))
     .pipe(gulp.dest('dist'))
 })
 
 gulp.task('scripts', () => {
     return gulp.src([
-        'src/scripts/tools.js',
         'src/scripts/menu.js',
         'src/scripts/router.js',
         'src/scripts/gallery.js',
