@@ -32,6 +32,7 @@ gulp.task('styles', () => {
 
 gulp.task('scripts', () => {
     return gulp.src([
+        'src/scripts/tools.js',
         'src/scripts/menu.js',
         'src/scripts/router.js',
         'src/scripts/gallery.js',

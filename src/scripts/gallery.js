@@ -13,6 +13,31 @@ let $index = 0;
 let $viewHeight = 0;
 let $zoom = 0;
 
+async function showGallery(number) {
+    console.log("showGallery()");
+    getGalleryDate()
+    // $gallery.innerHTML =""
+
+    try {
+        const path = `assets/gallery${number}/`
+        const response = await fetch(`${path}00.txt`)
+        const data = await response.text()
+
+        $gallery.classList.remove("none")
+        $gallery.classList.add("show")
+
+        if (data.startsWith("01")) {
+            buildGallery(data, path)
+
+        } else {
+            $gallery.innerHTML ="Niestety wybrana galeria jest niedostępna..."
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 function getGalleryDate() {
     console.log("getGalleryDate()");
 
@@ -31,102 +56,21 @@ function getGalleryDate() {
     $photoNext.addEventListener("click", showNextPhoto)
 }
 
-
-function checkKeys(e) {
-    console.log("checkKeys() " + e.key);
-    
-    if (e.key === "ArrowLeft") {
-        showPreviousPhoto(e)
-    }
-    if (e.key === "ArrowRight") {
-        showNextPhoto(e)
-    }
-    if (e.key === "Escape") {
-        hidePhoto(e)
-    }
-    if (e.key === "F9") {
-        showPresentation(e)
-    }
-}
-
-async function showGallery(number) {
-    console.log("showGallery()");
-    getGalleryDate()
-    $gallery.innerHTML =""
-
-    try {
-        const path = `assets/gallery${number}/`
-        const response = await fetch(`${path}00.txt`)
-
-        if (response.status == 200) {
-            $gallery.classList.remove("none")
-            $gallery.classList.add("show")
-
-            const data = await response.text()
-            prepareGallery(data, path)
-
-        } else {
-            console.log("Niestety wybrana galeria jest niedostępna...");
-        }
-
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-async function prepareGalleryData(number) {
-    let i = 0;
-    while (i < 5){
-        i++;
-        console.log("while()");
-        try {
-            const path = `assets/gallery${number}/0${i}.jpg`
-            const response = await fetch(path)
-            console.log(path);
-        } catch {
-
-        }
-
-        // try {
-        //     const path = `assets/gallery${number}/`
-        //     const response = await fetch(`${path}00.txt`)
-    
-        //     if (response.status == 200) {
-        //         $gallery.classList.remove("none")
-        //         $gallery.classList.add("show")
-    
-        //         const data = await response.text()
-        //         prepareGallery(data, path)
-    
-        //     } else {
-        //         console.log("Niestety wybrana galeria jest niedostępna...");
-        //     }
-    
-        // } catch (error) {
-        //     console.log(error);
-        // }
-      
-    }
-}
-
-function prepareGallery(data, path) {
-        console.log("prepareGallery()");
-
-        prepareGalleryData(1)
-
+function buildGallery(data, path) {
+        console.log("buildGallery()");
 
         let table = data.split("\n")
         $photos = [];
         $index = 0;
     
-        console.log(table);            
+        // console.log(table);            
         table.forEach(name => {
             name = name.trimEnd()
             if (name !== "" && name !== "\n")
             $photos.push(name)
         })
     
-        console.log($photos);
+        // console.log($photos);
         $photos.forEach(photo => {
             const imgPath = `${path}${photo}.jpg`
             // console.log(imgPath);
@@ -136,8 +80,8 @@ function prepareGallery(data, path) {
     
             img.setAttribute("id", `${$index}`)
             img.setAttribute("src", `${imgPath}`)
-            img.setAttribute("alt", `${photo}`)
-            img.setAttribute("title", `${photo}`)
+            // img.setAttribute("alt", `${photo}`)
+            // img.setAttribute("title", `${photo}`)
             img.addEventListener("click", showSelectedPhoto)
     
             $gallery.appendChild(image)
@@ -235,4 +179,21 @@ function hidePhoto(e) {
         $photo.classList.remove("show");
         $photo.classList.remove("hide")
     }, 450);
+}
+
+function checkKeys(e) {
+    console.log("checkKeys() " + e.key);
+    
+    if (e.key === "ArrowLeft") {
+        showPreviousPhoto(e)
+    }
+    if (e.key === "ArrowRight") {
+        showNextPhoto(e)
+    }
+    if (e.key === "Escape") {
+        hidePhoto(e)
+    }
+    if (e.key === "F9") {
+        showPresentation(e)
+    }
 }
