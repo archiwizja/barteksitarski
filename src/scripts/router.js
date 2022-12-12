@@ -28,7 +28,7 @@ class Router {
             
         } else if (path.slice(0,-1) == "/gallery") {
             this.setMainSection(path.slice(0,-1))
-            showGallery(path.slice(-1))
+            new Gallery(path.slice(-1))
 
         } else {
             this.setMainSection(path)

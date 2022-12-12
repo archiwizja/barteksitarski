@@ -1,199 +1,188 @@
-let $gallery
-let $galleryTemplate
+class Gallery {
+    constructor(number) {
+        console.log(`Gallery(${number})`);
 
-let $photo
-let $photoName
-let $photoImage
-let $photoPrevious
-let $photoNext
+        this.$index = 0;
+        this.$photos = [];
+        this.$interval;
 
-let $photos = [];
-let $interval;
-let $index = 0;
-let $viewHeight = 0;
-let $zoom = 0;
-
-async function showGallery(number) {
-    console.log("showGallery()");
-    getGalleryDate()
-    // $gallery.innerHTML =""
-
-    try {
-        const path = `assets/gallery${number}/`
-        const response = await fetch(`${path}00.txt`)
-        const data = await response.text()
-
-        $gallery.classList.remove("none")
-        $gallery.classList.add("show")
-
-        if (data.startsWith("01")) {
-            buildGallery(data, path)
-
-        } else {
-            $gallery.innerHTML ="Niestety wybrana galeria jest niedostępna..."
-        }
-
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-function getGalleryDate() {
-    console.log("getGalleryDate()");
-
-    $gallery = document.querySelector('.gallery');
-    $galleryTemplate = document.querySelector('.gallery_template');
+        this.$gallery = document.querySelector('.gallery');
+        this.$galleryTemplate = document.querySelector('.gallery_template');
+        
+        this.$photo = document.querySelector('.photo');
+        this.$photoImage = document.querySelector('.photo_image');
+        this.$photoPrevious = document.querySelector('.photo_arrow-previous');
+        this.$photoNext = document.querySelector('.photo_arrow-next');
+        // this.$photoName = document.querySelector('.photo_name');
     
-    $photo = document.querySelector('.photo');
-    $photoName = document.querySelector('.photo_name');
-    $photoImage = document.querySelector('.photo_image');
-    $photoPrevious = document.querySelector('.photo_arrow-previous');
-    $photoNext = document.querySelector('.photo_arrow-next');
+        this.$photo.addEventListener("click", this.hidePhoto)
+        this.$photoPrevious.addEventListener("click", this.showPreviousPhoto)
+        this.$photoNext.addEventListener("click", this.showNextPhoto)
+        window.addEventListener('keyup', this.checkKeys);
 
-    window.addEventListener('keyup', checkKeys);
-    $photo.addEventListener("click", hidePhoto)
-    $photoPrevious.addEventListener("click", showPreviousPhoto)
-    $photoNext.addEventListener("click", showNextPhoto)
-}
+        this.loadGallery(number)
+    }
 
-function buildGallery(data, path) {
+    loadGallery = async (number) => {
+        console.log("loadGallery()");
+    
+        try {
+            const path = `assets/gallery${number}/`
+            const response = await fetch(`${path}00.txt`)
+            const data = await response.text()
+    
+            this.$gallery.classList.remove("none")
+            this.$gallery.classList.add("show")
+    
+            if (data.startsWith("01")) {
+                this.buildGallery(data, path)
+    
+            } else {
+                this.$gallery.innerHTML ="Niestety wybrana galeria jest niedostępna..."
+            }
+    
+        } catch (error) {
+            console.log(error);
+        }
+    }
+      
+    buildGallery = (data, path) => {
         console.log("buildGallery()");
 
         let table = data.split("\n")
-        $photos = [];
-        $index = 0;
-    
-        // console.log(table);            
+        this.$photos = [];
+        this.$index = 0;
+         
         table.forEach(name => {
             name = name.trimEnd()
             if (name !== "" && name !== "\n")
-            $photos.push(name)
+            this.$photos.push(name)
         })
-    
-        // console.log($photos);
-        $photos.forEach(photo => {
+
+        this.$photos.forEach(photo => {
             const imgPath = `${path}${photo}.jpg`
             // console.log(imgPath);
             
-            const image = $galleryTemplate.content.cloneNode(true);
+            const image = this.$galleryTemplate.content.cloneNode(true);
             const img = image.querySelector('.gallery_image');
     
-            img.setAttribute("id", `${$index}`)
+            img.setAttribute("id", `${this.$index}`)
             img.setAttribute("src", `${imgPath}`)
             // img.setAttribute("alt", `${photo}`)
             // img.setAttribute("title", `${photo}`)
-            img.addEventListener("click", showSelectedPhoto)
+            img.addEventListener("click", this.showSelectedPhoto)
     
-            $gallery.appendChild(image)
-            $index++;
+            this.$gallery.appendChild(image)
+            this.$index++;
         })             
     }
-
-function showPresentation(e) {
-    console.log("showPresentation()");
-
-    $photo.classList.remove("none");
-    $photo.classList.add("show");
-
-    showPhoto(0)
-    $index = 0;
-
-    $interval = setInterval(() => {
-        if ($index < $photos.length - 1) {
-            showNextPhoto(e)
+    
+    showPresentation = (e) => {
+        console.log("showPresentation()");
+    
+        this.$photo.classList.remove("none");
+        this.$photo.classList.add("show");
+    
+        this.showPhoto(0)
+        this.$index = 0;
+    
+        this.$interval = setInterval(() => {
+            if (this.$index < this.$photos.length - 1) {
+                this.showNextPhoto(e)
+            } else {
+                clearInterval(this.$interval)
+                this.hidePhoto(e)
+            }
+        }, 3000);
+    }
+    
+    showPhoto = (imgID) => {
+        console.log(`showPhoto(${imgID})`);
+    
+        if (imgID == 0) {
+            this.$photoPrevious.classList.add("none")
         } else {
-            clearInterval($interval)
-            hidePhoto(e)
+            this.$photoPrevious.classList.remove("none")
         }
-    }, 3000);
-}
-
-function showPhoto(imgID) {
-    console.log(`showPhoto(${imgID})`);
-
-    if (imgID == 0) {
-        $photoPrevious.classList.add("none")
-    } else {
-        $photoPrevious.classList.remove("none")
-    }
-
-    if (imgID == $photos.length - 1) {
-        $photoNext.classList.add("none")
-    } else {
-        $photoNext.classList.remove("none")
-    }
-
-    const image = document.getElementById(imgID)
-
-    $photoImage.classList.add("show")
-
-    setTimeout(() => {
-        $photoImage.classList.remove("show")
-    }, 900);
-
-    $photoImage.setAttribute("src", image.src)
-    $photoImage.setAttribute("title", image.title)
-    // $photoName.textContent = image.title;
-}
-
-function showSelectedPhoto(e) {      
-    $photo.classList.remove("none");
-    $photo.classList.add("show");
-
-    let imgID = e.target.closest("img").id
-
-    showPhoto(imgID)
-    $index = imgID;
-
-    console.log(`showSelectedPhoto(${$index})`);
-}
-
-function showPreviousPhoto(e){
-    console.log("showPreviousPhoto()");
-
-    e.stopPropagation()
-    if ($index > 0) {
-        $index = parseInt($index) - 1
-        showPhoto($index)
-    } 
-}
-
-function showNextPhoto(e) {
-    console.log("showNextPhoto()");
     
-    e.stopPropagation()
-    if ($index < $photos.length - 1) {
-        $index = parseInt($index) + 1
-        showPhoto($index)
-    } 
-}
-
-function hidePhoto(e) {
-    console.log("hidePhoto()");
-    clearInterval($interval);
-
-    e.stopPropagation()
-    $photo.classList.add("hide")
-    setTimeout(() => {
-        $photo.classList.add("none")
-        $photo.classList.remove("show");
-        $photo.classList.remove("hide")
-    }, 450);
-}
-
-function checkKeys(e) {
-    console.log("checkKeys() " + e.key);
+        if (imgID == this.$photos.length - 1) {
+            this.$photoNext.classList.add("none")
+        } else {
+            this.$photoNext.classList.remove("none")
+        }
     
-    if (e.key === "ArrowLeft") {
-        showPreviousPhoto(e)
+        const image = document.getElementById(imgID)
+    
+        this.$photoImage.classList.add("show")
+    
+        setTimeout(() => {
+            this.$photoImage.classList.remove("show")
+        }, 900);
+    
+        this.$photoImage.setAttribute("src", image.src)
+        this.$photoImage.setAttribute("title", image.title)
+        // this.$photoName.textContent = image.title;
     }
-    if (e.key === "ArrowRight") {
-        showNextPhoto(e)
+    
+    showSelectedPhoto = (e) => {      
+        this.$photo.classList.remove("none");
+        this.$photo.classList.add("show");
+        
+        let imgID = e.target.closest("img").id
+        
+        this.$index = imgID;
+        console.log(`showSelectedPhoto(${this.$index})`);
+        
+        this.showPhoto(imgID)
     }
-    if (e.key === "Escape") {
-        hidePhoto(e)
+    
+    showPreviousPhoto = (e) => {
+        console.log("showPreviousPhoto()");
+    
+        e.stopPropagation()
+        if (this.$index > 0) {
+            this.$index = parseInt(this.$index) - 1
+            this.showPhoto(this.$index)
+        } 
     }
-    if (e.key === "F9") {
-        showPresentation(e)
+    
+    showNextPhoto = (e) => {
+        console.log("showNextPhoto()");
+        
+        e.stopPropagation()
+        if (this.$index < this.$photos.length - 1) {
+            this.$index = parseInt(this.$index) + 1
+            this.showPhoto(this.$index)
+        } 
+    }
+    
+    hidePhoto = (e) => {
+        console.log("hidePhoto()");
+        clearInterval(this.$interval);
+    
+        e.stopPropagation()
+        this.$photo.classList.add("hide")
+        setTimeout(() => {
+            this.$photo.classList.add("none")
+            this.$photo.classList.remove("show");
+            this.$photo.classList.remove("hide")
+        }, 450);
+    }
+    
+    checkKeys = (e) => {
+        console.log("checkKeys() " + e.key);
+        
+        if (e.key === "ArrowLeft") {
+            this.showPreviousPhoto(e)
+        }
+        if (e.key === "ArrowRight") {
+            this.showNextPhoto(e)
+        }
+        if (e.key === "Escape") {
+            this.hidePhoto(e)
+        }
+        if (e.key === "F9") {
+            this.showPresentation(e)
+        }
     }
 }
