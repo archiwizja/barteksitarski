@@ -1,9 +1,21 @@
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px,1fr));
-    margin: 10px;
-    gap: 10px;
-
+.gallery {    
+    &_title {
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: left;
+        padding: 0 25px;
+    }
+    &_description {
+        font-size: 1rem;
+        text-align: left;
+        padding: 10px 25px;
+    }
+    &_grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(380px,1fr));
+        margin: 10px;
+        gap: 10px;
+    }
     &_image {
         display: flex;
         width: 100%;

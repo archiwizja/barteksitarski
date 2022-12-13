@@ -7,6 +7,9 @@ class Gallery {
         this.$interval;
 
         this.$gallery = document.querySelector('.gallery');
+        this.$galleryGrid = document.querySelector('.gallery_grid');
+        this.$galleryTitle = document.querySelector('.gallery_title');
+        this.$galleryDescription = document.querySelector('.gallery_description');
         this.$galleryTemplate = document.querySelector('.gallery_template');
         
         this.$photo = document.querySelector('.photo');
@@ -25,43 +28,34 @@ class Gallery {
 
     loadGallery = async (number) => {
         console.log("loadGallery()");
-    
+
         try {
             const path = `assets/gallery${number}/`
-            const response = await fetch(`${path}00.txt`)
-            const data = await response.text()
-    
-            this.$gallery.classList.remove("none")
-            this.$gallery.classList.add("show")
-    
-            if (data.startsWith("01")) {
-                this.buildGallery(data, path)
-    
-            } else {
-                this.$gallery.innerHTML ="Niestety wybrana galeria jest niedostępna..."
-            }
-    
+            const response = await fetch(`${path}00.json`)
+            const data = await response.json()
+            this.buildGallery(data, path)
+            
         } catch (error) {
+            this.$gallery.classList.add("show")
+            this.$gallery.classList.remove("none")
+            this.$gallery.innerHTML ="Niestety wybrana galeria jest niedostępna..."
             console.log(error);
         }
     }
       
     buildGallery = (data, path) => {
         console.log("buildGallery()");
+        console.log(data);
 
-        let table = data.split("\n")
-        this.$photos = [];
-        this.$index = 0;
-         
-        table.forEach(name => {
-            name = name.trimEnd()
-            if (name !== "" && name !== "\n")
-            this.$photos.push(name)
-        })
+        this.$gallery.classList.add("show")
+        this.$gallery.classList.remove("none")
+
+        this.$galleryTitle.innerHTML = data.title
+        this.$galleryDescription.innerHTML = data.description
+        this.$photos = data.photos
 
         this.$photos.forEach(photo => {
-            const imgPath = `${path}${photo}.jpg`
-            // console.log(imgPath);
+            const imgPath = `${path}${photo}`
             
             const image = this.$galleryTemplate.content.cloneNode(true);
             const img = image.querySelector('.gallery_image');
@@ -72,7 +66,7 @@ class Gallery {
             // img.setAttribute("title", `${photo}`)
             img.addEventListener("click", this.showSelectedPhoto)
     
-            this.$gallery.appendChild(image)
+            this.$galleryGrid.appendChild(image)
             this.$index++;
         })             
     }
